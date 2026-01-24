@@ -1,13 +1,11 @@
-#include "memory.h"
+#include "MemoryManagement.h"
 
-static unsigned int heap = 0x100000;
+static unsigned int heap = 0x200000;
 
-void memory_init() {
-    heap = 0x100000;
-}
+void init_memory() {}
 
 void* kmalloc(unsigned int size) {
-    void* addr = (void*)heap;
+    void* r = (void*)heap;
     heap += size;
-    return addr;
+    return r;
 }

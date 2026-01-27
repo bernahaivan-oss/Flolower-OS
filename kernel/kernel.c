@@ -1,24 +1,34 @@
-#include "MemoryManagement.h"
-#include "ExeLoader.h"
+#include "commands.h"
+#include "screen.h"
+#include "keyboard.h"
+#include "memory.h"
+#include "process.h"
 
-void kprint(const char* s) {
-    volatile char* v = (volatile char*)0xB8000;
-    for (int i = 0; s[i]; i++) {
-        v[i*2] = s[i];
-        v[i*2+1] = 0x0F;
+static void halt() {
+    while (1) {
+        __asm__ volatile ("hlt");
     }
 }
 
 void kernel_main() {
-    init_memory();
-    kprint("Flolower-OS Kernel\n");
+    memory_init();
+    screen_init();
+    keyboard_init();
+    process_init();
+    commands_init();
 
-    if (load_exe()) {
-        kprint("EXE loaded\n");
-        execute_exe();
-    } else {
-        kprint("EXE load failed\n");
+    print_string("Welcome to Flolower-OS!\n");
+
+    char input_buffer[256];
+
+    while (1) {
+        for (int i = 0; i < 256; i++)
+            input_buffer[i] = 0;
+
+        keyboard_read_line(input_buffer, 256);
+        commands_execute(input_buffer);
+        schedule();
     }
 
-    while (1) {}
+    halt();
 }

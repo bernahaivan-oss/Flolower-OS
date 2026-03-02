@@ -126,7 +126,7 @@ except Exception:
 
 # ------------------ Root ------------------
 root = tk.Tk()
-root.title("Flolower OS v1.0(beta)")
+root.title("Flolower OS v1.0")
 root.attributes("-fullscreen", True)
 root.configure(bg=BG)
 SW, SH = root.winfo_screenwidth(), root.winfo_screenheight()

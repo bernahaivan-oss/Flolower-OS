@@ -16,7 +16,6 @@ import tkinter.messagebox
 from pathlib import Path
 import math
 
-swearing = ["fuck", "bitch","pidoras", "fucking" , "dick", "хуй", "пизда", "говно", "пиздец", "нахуй", "сука", "блять", "ебать"]
 try:
     from PyQt5.QtCore import *
     from PyQt5.QtWidgets import *
